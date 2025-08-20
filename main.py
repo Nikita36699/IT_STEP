@@ -100,4 +100,96 @@
 # for student in student_list:
 #     print(student)
 
+# Завдання 3
+# Створіть клас Circle з атрибутом radius. Додайте метод для
+# отримання площі кола
+class Circle:
+    def __init__(self, radius):
+        self.radius = radius
 
+    def get_area(self):
+        pi = 3.14
+        s = pi * (self.radius ** 2)
+
+        return s
+
+circle1 = Circle(radius=4)
+circle2 = Circle(radius=5)
+
+print(circle1.get_area())
+print(circle2.get_area())
+
+
+# Завдання 4
+# Створіть клас BankAccount з атрибутами owner та balance.
+# Додайте метод deposit для поповнення рахунку
+# Додайте метод withdraw для зняття грошей з рахунку
+# Додайте метод info для виведення інформації про баланс
+class BankAccount:
+    def __init__(self, balance,owner):
+        self.balance = balance
+        self.owner = owner
+
+
+    def deposit(self,user_deposit):
+        self.balance += user_deposit
+
+        return self.balance
+
+
+    def withdraw(self, user_withdraw):
+        self.balance -= user_withdraw
+
+        return self.balance
+
+
+    def info(self):
+        print(f'{self.owner} your balance {self.balance}')
+
+
+user1 = input("введіть свое ім'я")
+balance1 = int(input('введіть баланс:'))
+account1 = BankAccount(balance=balance1,owner=user1)
+
+
+
+account1.info()
+account1.deposit(1000)
+account1.info()
+
+
+# Завдання 5
+# Створіть клас Car з атрибутами brand(марка), year(рік
+# випуску), is_ready(чи готовий до поїздки, за замовчування
+# False).
+# Додайте метод start_engine який заводить двигун, і змінює
+# атрибут is_ready
+# Додайте метод move який виводить повідомлення, що
+# автомобіль їде, або ж ще не готовий в залежності від is_ready.
+class Car:
+    def __init__(self,brand,year):
+        self.brand = brand
+        self.year = year
+        self.is_ready = False
+
+    def start_engine(self):
+        self.is_ready = True
+        print('двигун заведенно')
+
+        return self.is_ready
+
+
+    def move(self,distance):
+        if not self.is_ready:
+            print("цей автомобіль не заведенний і не можє їхати")
+            return
+
+        print(f"автомобіль проїхав - {distance} кілометрів ")
+
+car = Car('BMW',2021)
+
+car.move(10)
+
+car.start_engine()
+
+car.move(10)
