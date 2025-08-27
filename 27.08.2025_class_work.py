@@ -199,95 +199,164 @@
 # об’єкт.
 # Створіть декілька транспортних засобів, добавте їх у список
 # та для кожної викличте відповідні методи.
-import typing
+# import typing
+#
+#
+# class Car:
+#     def __init__(self, speed):
+#         self.speed = speed
+#         self.check_speed()
+#
+#     def move(self):
+#         print(f'їде по шосе зі швидкістю: {self.speed} км/год')
+#
+#     def check_speed(self):
+#         if self.speed < 20 or self.speed > 200:
+#             raise  ValueError('Car – від 20 до 200')
+#
+#
+# class Bicycle:
+#     def __init__(self, speed):
+#         self.speed = speed
+#         self.check_speed()
+#
+#     def move(self):
+#         print(f'їде по дорозі зі швидкістю: {self.speed} км/год')
+#
+#     def check_speed(self):
+#         if self.speed < 10 or self.speed > 30:
+#             raise ValueError('Bicycle – від 10 до 30')
+#
+#
+# class Boat:
+#     def __init__(self, speed):
+#         self.speed = speed
+#         self.check_speed()
+#
+#     def move(self):
+#         print(f'пливе по воді зі швидкістю: {self.speed} км/год')
+#
+#     def check_speed(self):
+#         if self.speed < 0 or self.speed > 50:
+#             raise ValueError('Boat – від 0 до 50')
+#
+#
+# def create_vehicle():
+#     user_choise = int(input('оберіть траспортний засіб де Car(1) Bicycle(2) Boat(3) '))
+#
+#     if user_choise == 1:
+#         try:
+#             speed = int(input('введіть швидкість - км/год'))
+#
+#             car = Car(speed)
+#             return  car
+#         except ValueError as err:
+#             print(f'ви ввели не правильно шивдість {err}')
+#             return None
+#
+#     elif user_choise == 2:
+#         try:
+#             speed = int(input('введіть швидкість - км/год'))
+#
+#             bicycle = Bicycle(speed)
+#
+#             return  bicycle
+#         except ValueError as err:
+#             print(f'ви ввели не правильно шивдість {err}')
+#             return None
+#
+#     elif user_choise == 3:
+#         try:
+#             speed = int(input('введіть швидкість - км/год'))
+#
+#             boat = Boat(speed)
+#
+#             return boat
+#         except ValueError as err:
+#             print(f'ви ввели не правильно шивдість {err}')
+#             return None
+#
+#     else:
+#         print("Виберіть правильну команду")
+#         return None
+#
+#
+# vechiles: typing.List[Car | Bicycle | Boat ] = []
+#
+# for _ in range(3):
+#     vechile = create_vehicle()
+#     if vechile is not None:
+#         vechiles.append(vechile)
+#
+# for vechile in vechiles:
+#     print(type(vechile))
+#     vechile.move()
 
 
-class Car:
-    def __init__(self, speed):
-        self.speed = speed
-        self.check_speed()
-
-    def move(self):
-        print(f'їде по шосе зі швидкістю: {self.speed} км/год')
-
-    def check_speed(self):
-        if self.speed < 20 or self.speed > 200:
-            raise  ValueError('Car – від 20 до 200')
+import  typing
 
 
-class Bicycle:
-    def __init__(self, speed):
-        self.speed = speed
-        self.check_speed()
 
-    def move(self):
-        print(f'їде по дорозі зі швидкістю: {self.speed} км/год')
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
 
-    def check_speed(self):
-        if self.speed < 10 or self.speed > 30:
-            raise ValueError('Bicycle – від 10 до 30')
+    def show(self):
+        print(f'product  {self.name} ціна - {self.price}')
 
 
-class Boat:
-    def __init__(self, speed):
-        self.speed = speed
-        self.check_speed()
+class Customer:
+    def __init__(self, name, balance):
+        self.name = name
+        self.balance = balance
 
-    def move(self):
-        print(f'пливе по воді зі швидкістю: {self.speed} км/год')
+    def deposit(self, total):
+        self.balance += total
 
-    def check_speed(self):
-        if self.speed < 0 or self.speed > 50:
-            raise ValueError('Boat – від 0 до 50')
-
-
-def create_vehicle():
-    user_choise = int(input('оберіть траспортний засіб де Car(1) Bicycle(2) Boat(3) '))
-
-    if user_choise == 1:
-        try:
-            speed = int(input('введіть швидкість - км/год'))
-
-            car = Car(speed)
-            return  car
-        except ValueError as err:
-            print(f'ви ввели не правильно шивдість {err}')
-            return None
-
-    elif user_choise == 2:
-        try:
-            speed = int(input('введіть швидкість - км/год'))
-
-            bicycle = Bicycle(speed)
-
-            return  bicycle
-        except ValueError as err:
-            print(f'ви ввели не правильно шивдість {err}')
-            return None
-
-    elif user_choise == 3:
-        try:
-            speed = int(input('введіть швидкість - км/год'))
-
-            boat = Boat(speed)
-
-            return boat
-        except ValueError as err:
-            print(f'ви ввели не правильно шивдість {err}')
-            return None
-
-    else:
-        print("Виберіть правильну команду")
-        return None
+    def withdraw(self, total):
+        self.balance -= total
 
 
-vechiles: typing.List[Car | Bicycle | Boat ] = []
+class Cart:
+    def __init__(self,owner: Customer, items: typing.List[Product]):
+        self.owner = owner
+        self.items = items
 
-for _ in range(3):
-    vechile = create_vehicle()
-    if vechile is not None:
-        vechiles.append(vechile)
+    def add_product(self, product: Product):
+          self.items.append(product)
 
-for vechile in vechiles:
-    print(type(vechile))
-    vechile.move()
+    def checkout(self):
+        for product in self.items:
+            price = product.price
+            self.owner.withdraw(price)
+
+        self.items = []
+
+    def show(self):
+        total = 0
+        for product in self.items:
+            price = product.price
+            total += price
+            product.show()
+
+        print(f'загальна вартість {total} грн')
+
+
+
+# product = Product('milk', 70)
+
+# product = {
+#     "name": "milk",
+#     "price": 70
+# }
+
+customer = Customer('Mary', 100)
+product1 =  Product('milk', 70)
+product2 = Product('bread', 30)
+
+cart = Cart(customer, [product1, product2])
+
+cart.checkout()
+
+print(customer.balance)
