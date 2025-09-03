@@ -163,6 +163,11 @@ class Character(abc.ABC):
 #  unshield() – зменшує стат defense на 4+level
 #  heal_ally(ally) – лікує союзника на 5 + 2*level + 0.5*mana
 class Paladin(Character):
+    def __init__(self, name, max_hp, hp, level, intelligence, strength, dexterity, mana, defense):
+        super().__init__(name, max_hp, hp, level, intelligence, strength, dexterity, mana, defense)
+
+        self.is_protected = False
+
     def attack(self):
         if  self.mana >= 5:
             self.mana -= 5
@@ -171,12 +176,17 @@ class Paladin(Character):
             return  self.strength
 
     def shield(self):
-        self.defense += 4
-        self.defense += self.level
+        if not  self.is_protected:
+            self.defense += 4
+            self.defense += self.level
+            self.is_protected = True
+
 
     def unshield(self):
-        self.defense -= 4
-        self.defense -= self.level
+        if self.is_protected:
+            self.defense -= 4
+            self.defense -= self.level
+            self.is_protected = False
 
     def heal_ally(self,ally: Character):
         heal_hp = 5 + (2 * self.level) + (0.5 * self.mana)
@@ -246,17 +256,57 @@ class Mage(Character):
 mage =  Mage('Tom',100, 60, 6, 10, 46,30,10,15)
 paladin2 = Paladin('Tom',100, 60, 5, 50, 76,50,20,25)
 
-mage.attack()
-mage.fireball()
-mage.attack()
-mage.fireball()
-mage.attack()
-mage.fireball()
+# mage.attack()
+# mage.fireball()
+# mage.attack()
+# mage.fireball()
+# mage.attack()
+# mage.fireball()
+#
+# print(paladin2.hp)
+# mage.heal_ally(paladin2)
+# print(paladin2.hp)
+#
+# print(mage.hp)
+# paladin2.heal_ally(mage)
+# print(mage.hp)
 
-print(paladin2.hp)
-mage.heal_ally(paladin2)
-print(paladin2.hp)
+# Завдання 4
+# Створіть дочірній клас Warrior
+# Методи:
+#  attack() – наносить 4*strength+3 урону
+#  power_strike(enemies) – проходить по списку ворогів:
+# якщо їхній рівень менший за рівень персонажа, то
+# знищує його повністю
+class Warrior(Character):
+    def attack(self):
+        damage = 4 * self.strength + 3
+        print(f"Нанесено {damage} одиниць урону!")
+        return damage
 
-print(mage.hp)
-paladin2.heal_ally(mage)
-print(mage.hp)
+    def power_strike(self, enemies):
+        for enemy in enemies:
+            if enemy.level <= self.level:
+                enemy.hp = 0
+                print(f"Ворога {enemy.name} знищено")
+            else:
+                print(f"Ворог {enemy.name} вижив")
+
+
+class Enemy(Character):
+    def attack(self):
+        return  10
+
+
+enem1 =  Enemy('Tom',100, 60, 3, 10, 46,30,10,15)
+enem2 = Enemy('Dima',100, 60, 10, 50, 76,50,20,25)
+p1 = Paladin('Dima',100, 60, 10, 50, 76,50,20,25)
+
+war = Warrior('Tom',100, 60, 6, 50, 76,50,20,25)
+
+enemies = [enem1, enem2]
+
+war.power_strike(enemies)
+
+print(enem1.hp)
+
