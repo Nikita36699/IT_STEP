@@ -172,3 +172,69 @@ wh.undo()
 
 wh.redo()
 wh.redo()
+
+# Завдання 2
+# Використовуючи стек створіть клас EnterNumber для введення числа в рядку
+# Атрибути:
+#  digits – стек з введеними цифрами
+# Методи:
+#  add(digit) – додати нову цифру, вивести помилку якщо не цифра
+#  undo() – видалити останню цифру
+# Практичне завдання
+#  get_number() – повернути число
+#  clear() – очистити стек
+import  copy
+class EnterNumber:
+    def __init__(self):
+        self.digits = LifoQueue()
+
+    def add(self, digit: str):
+        if digit.isdigit() and len(digit) == 1:
+            self.digits.put(digit)
+        else:
+            raise ValueError('це не цифра')
+
+    def undo(self):
+        if  self.digits.empty():
+            raise  IndexError('is empty')
+
+        self.digits.get()
+
+    def get_number(self):
+        if self.digits.empty():
+            print('empty stack')
+            return
+
+        number_str = ''
+        while not  self.digits.empty():
+            number_str += self.digits.get()
+
+        for char in number_str[::-1]:
+            self.digits.put(char)
+
+        # for char  in range(len(number_str) -1,-1,-1) :
+        #     self.digits.put(numeber_str[i])
+
+        return int(number_str[::-1])
+
+    def clear(self):
+        self.digits = LifoQueue()
+
+
+entry = EnterNumber()
+
+entry.add("9")
+entry.add("5")
+
+entry.add("1")
+entry.add("3")
+
+print(entry.get_number())
+
+entry.undo()
+print(entry.get_number())
+
+entry.clear()
+print(entry.get_number())
+
+
