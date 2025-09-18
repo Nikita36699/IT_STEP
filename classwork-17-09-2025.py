@@ -1,5 +1,5 @@
 # стеки
-
+from asyncio import current_task
 # def func1():
 #     func2()
 #
