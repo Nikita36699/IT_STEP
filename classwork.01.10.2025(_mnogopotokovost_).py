@@ -264,13 +264,13 @@
 #     random_num = random.randint(1, 100)
 #     nums.append(random_num)
 #
-# with open(file='nums.json', mode='w') as file:
+# with open(file='data/data_new/nums.json', mode='w') as file:
 #     json.dump(nums, file)
-
-import threading
-import json
-import  os
-from fileinput import filename
+#
+# import threading
+# import json
+# import  os
+#
 
 
 def get_user_way():
