@@ -28,7 +28,7 @@ def add_new_album(bands: dict):
     user_band = input('add band name').capitalize().strip()
     user_band_album = input('add album name').capitalize().strip()
     if user_band not in bands:
-        bands[user_band] = user_band_album
+        bands[user_band] = [user_band_album]
     else:
         bands[user_band].append(user_band_album)
 
