@@ -47,3 +47,4 @@ def main():
     t2.join()
     t3.join()
     print(f'Список чисел: {nums}')
+
