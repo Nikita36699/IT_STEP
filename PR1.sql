@@ -91,3 +91,54 @@ FROM STUDENTS;
 
 SELECT PIB
 FROM STUDENTS;
+
+
+
+-- ■ Відображати усіх середніх оцінок.
+SELECT AVG_GRADE
+FROM STUDENTS;
+
+
+-- ■ Показати ПІБ усіх студентів з мінімальною оцінкою,
+-- більшою, ніж зазначена.
+SELECT PIB, MIN_SUBJECT_GRADE 
+FROM STUDENTS
+WHERE MIN_SUBJECT_GRADE  > 75;
+
+
+-- ■ Показати країни студентів. Назви країн мають бути
+-- унікальними.
+SELECT DISTINCT COUNTRY
+FROM STUDENTS;
+
+-- ■ Показати міста студентів. Назви міст мають бути
+-- унікальними.
+SELECT DISTINCT CITY
+FROM STUDENTS;
+
+
+-- ■ Показати назви груп. Назви груп мають бути уні-
+-- кальними.
+SELECT DISTINCT GROUP_NAME
+FROM STUDENTS;
+
+
+
+-- ■ Показати назви усіх предметів із мінімальними се-
+-- редніми оцінками. Назви предметів мають бути уні-
+-- кальними.
+SELECT DISTINCT MIN_SUBJECT_NAME
+FROM STUDENTS;
+
+
+-- ВИВЕСТИ ІНФОРМАЦІЮ ПРО СТУДЕНТІВ ЯКІ ЗАВАЛИЛИ ІСТОРІЮ
+
+SELECT *
+FROM STUDENTS
+WHERE MIN_SUBJECT_NAME = 'Історія';
+
+
+SELECT *
+FROM STUDENTS
+WHERE MIN_SUBJECT_NAME = 'Історія' AND MIN_SUBJECT_GRADE < 75;
+
