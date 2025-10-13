@@ -59,7 +59,7 @@
 -- ('Черненко Світлана Василівна', 'Дніпро', 'Україна', '2003-11-29', 'cherneko.s@gmail.com', '+380501111146', 'ІТ-21', 86, 'Історія', 75, 'Бази даних', 95),
 -- ('Остапенко Богдан Петрович', 'Харків', 'Україна', '2002-08-13', 'ostapenko.b@gmail.com', '+380501111147', 'ІТ-22', 80, 'Фізика', 68, 'Програмування', 91),
 -- ('Миронюк Катерина Юріївна', 'Київ', 'Україна', '2004-05-01', 'myroniuk.k@gmail.com', '+380501111148', 'ІТ-23', 88, 'Філософія', 75, 'Математика', 97),
--- ('Литвин Артем Сергійович', 'Черкаси', 'Україна', '2003-12-08', 'lytvyn.a@gmail.com', '+380501111149', 'ІТ-21', 82, 'Історія', 70, 'Алгоритми', 92);--
+-- ('Литвин Артем Сергійович', 'Черкаси', 'Україна', '2003-12-08', 'lytvyn.a@gmail.com', '+380501111149', 'ІТ-21', 82, 'Історія', 70, 'Алгоритми', 92);
 
 -- ALTER TABLE STUDENTS
 -- ALTER COLUMN PIB TYPE VARCHAR(50);
@@ -121,6 +121,94 @@ SELECT *
 FROM STUDENTS
 WHERE EMAIL ILIKE 'S%';
 
+-- Завдання 2
+-- Створіть наступні запити для бази даних з оцінками
+-- студентів із попереднього практичного завдання:
+-- ■ Показати мінімальну середню оцінку по всіх сту-
+-- дентах.
+SELECT PIB, MIN_SUBJECT_GRADE
+FROM STUDENTS;
 
 
+
+-- Практичне завдання
+-- 1
+-- ■ Показати максимальну середню оцінку по всіх сту-
+-- дентах.
+SELECT PIB, MAX_SUBJECT_GRADE
+FROM STUDENTS;
+
+-- ■ Показати статистику міст. Має відображатися назва
+-- міста та кількість студентів з цього міста.
+SELECT CITY,COUNT(*)
+FROM STUDENTS
+GROUP BY  CITY;
+
+
+
+-- ■ Показати статистику студентів. Має відображатися
+-- назва країни та кількість студентів з цієї країни.
+SELECT COUNTRY,COUNT(*)
+FROM STUDENTS
+GROUP BY COUNTRY;
+
+
+
+-- ■ Показати кількість студентів з мінімальною середньою
+-- оцінкою з математики.
+SELECT  COUNT(*)
+FROM STUDENTS 
+WHERE LOWER(MIN_SUBJECT_NAME) = 'фізика';
+
+
+-- ■ Показати кількість студентів з максимальною серед-
+-- ньою оцінкою з математики.
+SELECT COUNT(*)
+FROM STUDENTS
+WHERE LOWER(MAX_SUBJECT_NAME) = 'програмування';
+
+
+-- ■ Показати кількість студентів у кожній групі.
+SELECT  GROUP_NAME,COUNT(*)
+FROM STUDENTS
+GROUP BY GROUP_NAME;
+
+
+-- ■ Показати середню оцінку групи.
+SELECT  GROUP_NAME, AVG(AVG_GRADE)
+FROM STUDENTS
+GROUP BY GROUP_NAME;
+
+-- ПОКАЗАТИ КІЛЬКІСТЬ СТУДЕНТІВ К КОЖНОГО МІСТА ГРУППИ  IT-21
+SELECT CITY, COUNT(CITY)---, STRING_AGG(PIB: TEXT)
+FROM STUDENTS
+WHERE GROUP_NAME = 'ІТ-21'
+GROUP BY CITY;
+
+
+SELECT*
+FROM STUDENTS;
+
+--DOSTAT SAMOE BOLSHOY SREDNIYY OZENKY
+SELECT MAX(AVG_GRADE)
+FROM STUDENTS;
+
+SELECT PIB, AVG_GRADE
+FROM STUDENTS
+WHERE AVG_GRADE = (
+	SELECT MAX(AVG_GRADE) 
+	FROM  STUDENTS);
+	
+-- ТЕ Ж САМЕ ЧЕРЕЗ ПРОМІЖНУ ЗМІННУ
+WITH MAXIMUM_AVG AS (
+    SELECT MAX(AVG_GRADE) AS COLUMN_AVG
+    FROM STUDENTS
+ 	)
+SELECT PIB, AVG_GRADE
+FROM STUDENTS , MAXIMUM_AVG
+WHERE AVG_GRADE = MAXIMUM_AVG.COLUMN_AVG;
+
+
+
+	
 
