@@ -114,10 +114,10 @@ SELECT
     (SALARY / (SALARY + PREMIUM)) * 100 AS SALARY_TO_TOTAL_PERCENT
 FROM TEACHERS;
 
--- 4. ВИВЕСТИ ТАБЛИЦЮ ФАКУЛЬТЕТІВ ОДНИМ ПОЛЕМ У ТАКОМУ ФОРМАТІ:
--- «THE DEAN OF FACULTY [FACULTY] IS [DEAN].»
-SELECT 'THE DEAN OF FACULTY ' || NAME || ' IS ' || DEAN || '.' AS INFO
-FROM FACULTIES;
+-- 5. ВИВЕСТИ ПРІЗВИЩА ПРОФЕСОРІВ, СТАВКА ЯКИХ ПЕРЕВИЩУЄ 1050.
+SELECT SURNAME
+FROM TEACHERS
+WHERE ISPROFESSOR = TRUE AND SALARY > 1050;
 
 
 -- 13. ВИВЕСТИ ПРІЗВИЩА АСИСТЕНТІВ ІЗ ЗАРПЛАТОЮ (СУМА СТАВКИ ТА НАДБАВКИ) НЕ БІЛЬШЕ 1200.
